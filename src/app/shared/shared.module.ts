@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
@@ -23,7 +24,8 @@ import { PokeListComponent } from './poke-list/poke-list.component';
     HttpClientModule
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
