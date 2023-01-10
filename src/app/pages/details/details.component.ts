@@ -11,29 +11,33 @@ import { PokeApiService } from 'src/app/service/poke-api.service';
 export class DetailsComponent implements OnInit {
 
   public pokemon: any ;
+  public isLoading: boolean = false;
+  public apiError: boolean = false;
 
   private urlPokemon: string = 'https://pokeapi.co/api/v2/pokemon';
   private urlName: string = 'https://pokeapi.co/api/v2/pokemon-species'
 
   constructor(
     private activerouter: ActivatedRoute,
-    private pokeapiservice: PokeApiService
+    private pokeApiService: PokeApiService
   ) { }
 
   ngOnInit(): void {
-    this.getpokemon;
+    this.getPokemon;
   }
 
 
-  get getpokemon(){
+  get getPokemon(){
     const id = this.activerouter.snapshot.params['id'];
-    const pokemon = this.pokeapiservice.apiGetPokemons(`${this.urlPokemon}/${id}`);
-    const name = this.pokeapiservice.apiGetPokemons(`${this.urlName}/${id}`);
+    const pokemon = this.pokeApiService.apiGetPokemons(`${this.urlPokemon}/${id}`);
+    const name = this.pokeApiService.apiGetPokemons(`${this.urlName}/${id}`);
 
     return forkJoin([pokemon, name]).subscribe(
       res => {
         this.pokemon = res;
-      }
+        this.isLoading = true;
+      },
+
     );
   }
 }
